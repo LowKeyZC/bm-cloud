@@ -17,3 +17,7 @@ zuul:
     ignored-patterns: /*-cloud/**
     # 屏蔽服务
     ignored-services: user-cloud,book-cloud,order-cloud
+# 超时设置
+ribbon:
+    ReadTimeout: 3000
+    ConnectTimeout: 3000
