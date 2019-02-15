@@ -1,0 +1,9 @@
+spring:
+    application:
+        name: book-cloud
+    cloud:
+        config:
+            discovery:
+                service-id: config-cloud
+                enabled: true
+            profile: dev

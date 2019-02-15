@@ -1,0 +1,100 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>图书列表</title>
+    <meta charset="UTF-8">
+    <script src="../static/js/jquery-1.10.2.js"></script>
+    <script src="../static/js/jquery.cookie.js"></script>
+    <script src="../static/js/common.js"></script>
+</head>
+<body>
+    <div align="center">
+        用户：<p id="userNameP"></p><br>
+        我的余额：<p id="hasMoneyP"></p>
+        <a href="login.html">LOGOUT</a>
+        <table border="1px" id="tab">
+            <tr>
+                <th hidden="hidden">图书ID</th>
+                <th>图书名称</th>
+                <th>图书价格</th>
+                <th>操作</th>
+            </tr>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        var userName = $.cookie("userName");
+        var userId = $.cookie("userId");
+        var hasMoney = $.cookie("hasMoney");
+
+        $("#userNameP").html(userName);
+        $("#hasMoneyP").html(hasMoney);
+
+        var data = [];
+        $.ajax({
+            type : 'post',
+            url : cpath + "/gateway-book/book/list",
+            data: {
+                "userId" : userId
+            },
+            success : function (result) {
+                console.info(result);
+                data = result;
+                initTable();
+            }
+        });
+
+        function play(i) {
+            var bookId = data[i].bookId;
+            $.ajax({
+                type : 'post',
+                url : cpath + '/gateway-user/user/play',
+                data : {
+                    "userId" : userId,
+                    "bookId" : bookId
+                },
+                success : function (result) {
+                    alert(result.data);
+                }
+            })
+        }
+
+        function buy(i) {
+            var bookId = data[i].bookId;
+            console.info("bookId="+bookId);
+            $.ajax({
+                type : 'post',
+                url : cpath + '/gateway-user/user/buy',
+                data : {
+                    "userId" : userId,
+                    "bookId":bookId
+                },
+                success : function (result) {
+                    if (result.code === "200") {
+                        window.location.reload();
+                    } else if (result.code === "1003") {
+                        alert("余额不足！")
+                    } else {
+                        alert(result.msg)
+                    }
+                }
+            })
+        }
+
+        function initTable() {
+            for(var i = 0; i < data.length; i++) {
+                var s = "<tr>";
+                s += "<td hidden=\"hidden\">" + data[i].bookId + "</td>";
+                s += "<td>" + data[i].bookName + "</td>";
+                s += "<td>" + data[i].bookValue + "</td>";
+                if (data[i].orderStatus === "1") {
+                    s += "<td bgcolor='#f5f5dc'><a onclick=play("+i+")>阅读</a></td>";
+                } else if(data[i].orderStatus === "2") {
+                    s += "<td bgcolor='#7fffd4'><a onclick=buy("+i+")>购买</a></td>"
+                }
+                s += "</tr>";
+                $("#tab").append(s);
+            }
+        }
+    </script>
+</body>
+</html>

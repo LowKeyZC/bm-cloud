@@ -1,0 +1,77 @@
+<html>
+<head>
+    <title>新增图书</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../static/js/jquery-1.10.2.js"></script>
+    <script src="../static/js/jquery.cookie.js"></script>
+    <script src="../static/js/common.js"></script>
+</head>
+<body>
+    <div class="zzsc-container">
+        <div>
+            <fieldset>
+                <div class="icon">
+                    <label class="cd-label" for="bookName">图书名称</label>
+                    <input class="email error" type="text" name="bookName" id="bookName" required>
+                </div>
+                <div class="icon">
+                    <label class="cd-label" for="bookContent">图书内容</label>
+                    <textarea class="message" name="bookContent" id="bookContent" required></textarea>
+                </div>
+                <div class="icon">
+                    <label class="cd-label" for="bookValue">价格</label>
+                    <input class="email error" type="text" name="bookValue" id="bookValue" required>
+                </div>
+                <div>
+                    <button onclick="submit()">录入</button>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+<script type="text/javascript">
+    var addUrl = cpath + "/gateway-book/book/add";
+    var data = null;
+
+    function checkInput() {
+        var bookName = $("#bookName").val();
+        var bookContent = $("#bookContent").val();
+        var bookValue = $("#bookValue").val();
+
+        if ($.trim(bookName) == "" || $.trim(bookContent) == "" || $.trim(bookValue) == "") {
+            alert("内容不能为空！");
+            return false
+        } else {
+            data = {
+                "bookName":bookName,
+                "bookContent":bookContent,
+                "bookValue":bookValue
+            };
+            return true
+        }
+    }
+
+    function submit() {
+        if (checkInput()) {
+            $.ajax({
+                url:addUrl,
+                type:"post",
+                data: JSON.stringify(data),
+                contentType : "application/json",
+                dataType : "json",
+                success : function (result) {
+                    console.info(result);
+                    if (result.code == 200) {
+                        window.location.href = "mana_book.html";
+                    } else {
+                        alert(result.msg);
+                    }
+                }
+            })
+        }
+    }
+
+</script>
+</body>
+</html>

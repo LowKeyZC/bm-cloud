@@ -1,0 +1,55 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>图书列表</title>
+    <meta charset="UTF-8">
+    <script src="../static/js/jquery-1.10.2.js"></script>
+    <script src="../static/js/jquery.cookie.js"></script>
+    <script src="../static/js/common.js"></script>
+</head>
+<body>
+<div align="center">
+    用户：<p id="userNameP"></p><br>
+    <a href="login.html">LOGOUT</a>
+    <table border="1px" id="tab">
+        <tr>
+            <th hidden="hidden">图书ID</th>
+            <th>图书名称</th>
+            <th>图书价格</th>
+        </tr>
+    </table>
+    <a href="add_book.html">新增图书</a>
+</div>
+<script type="text/javascript">
+    var userId = $.cookie("userId");
+    var userName = $.cookie("userName");
+
+    $("#userNameP").html(userName);
+
+    var data = [];
+    $.ajax({
+        type : 'post',
+        url : cpath + "/gateway-book/book/list",
+        data : {
+            "userId" : userId
+        },
+        success : function (result) {
+            console.info(result);
+            data = result;
+
+            initTable();
+        }
+    });
+
+    function initTable() {
+        for(var i = 0; i < data.length; i++) {
+            var s = "<tr>";
+            s += "<td hidden=\"hidden\">" + data[i].bookId + "</td>";
+            s += "<td>" + data[i].bookName + "</td>";
+            s += "<td>" + data[i].bookValue + "</td>";
+            s += "</tr>";
+            $("#tab").append(s);
+        }
+    }
+</script>
+</body>
+</html>

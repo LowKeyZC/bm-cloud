@@ -1,0 +1,9 @@
+spring:
+    application:
+        name: order-cloud
+    cloud:
+        config:
+            discovery:
+                service-id: config-cloud
+                enabled: true
+            profile: dev

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zc.ordercloud.dao.OrderMapper">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.zc.ordercloud.bean.Order">
+        <result column="o_id" property="id"/>
+        <result column="o_user_id" property="userId"/>
+        <result column="o_book_id" property="bookId"/>
+        <result column="o_create_tm" property="createTm"/>
+        <result column="o_modify_tm" property="modifyTm"/>
+        <result column="o_status" property="status"/>
+        <result column="detail" property="detail"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        o_id,
+        o_user_id,
+        o_book_id,
+        o_create_tm,
+        o_modify_tm,
+        o_status,
+        o_detail
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO tb_webstu_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> o_id, </if>
+            <if test="pojo.userId != null"> o_user_id, </if>
+            <if test="pojo.bookId != null"> o_book_id, </if>
+            <if test="pojo.createTm != null"> o_create_tm, </if>
+            <if test="pojo.modifyTm != null"> o_modify_tm, </if>
+            <if test="pojo.status != null"> o_status, </if>
+            <if test="pojo.detail != null"> o_detail, </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> #{pojo.id}, </if>
+            <if test="pojo.userId != null"> #{pojo.userId}, </if>
+            <if test="pojo.bookId != null"> #{pojo.bookId}, </if>
+            <if test="pojo.createTm != null"> #{pojo.createTm}, </if>
+            <if test="pojo.modifyTm != null"> #{pojo.modifyTm}, </if>
+            <if test="pojo.status != null"> #{pojo.status}, </if>
+            <if test="pojo.detail != null"> #{pojo.detail}, </if>
+        </trim>
+    </insert>
+
+<!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO tb_webstu_order(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.userId},
+            #{pojo.bookId},
+            #{pojo.createTm},
+            #{pojo.modifyTm},
+            #{pojo.status},
+            #{pojo.detail}
+            )
+        </foreach>
+    </insert>
+
+<!--auto generated Code-->
+    <update id="update">
+        UPDATE tb_webstu_order
+        <set>
+            <if test="pojo.id != null"> o_id = #{pojo.id}, </if>
+            <if test="pojo.userId != null"> o_user_id = #{pojo.userId}, </if>
+            <if test="pojo.bookId != null"> o_book_id = #{pojo.bookId}, </if>
+            <if test="pojo.createTm != null"> o_create_tm = #{pojo.createTm}, </if>
+            <if test="pojo.modifyTm != null"> o_modify_tm = #{pojo.modifyTm}, </if>
+            <if test="pojo.status != null"> o_status = #{pojo.status}, </if>
+            <if test="pojo.detail != null"> o_detail = #{pojo.detail} </if>
+        </set>
+         WHERE o_id = #{pojo.id}
+    </update>
+
+<!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM tb_webstu_order
+        <where>
+            <if test="pojo.id != null"> AND o_id = #{pojo.id} </if>
+            <if test="pojo.userId != null"> AND o_user_id = #{pojo.userId} </if>
+            <if test="pojo.bookId != null"> AND o_book_id = #{pojo.bookId} </if>
+            <if test="pojo.createTm != null"> AND o_create_tm = #{pojo.createTm} </if>
+            <if test="pojo.modifyTm != null"> AND o_modify_tm = #{pojo.modifyTm} </if>
+            <if test="pojo.status != null"> AND status = #{pojo.status} </if>
+            <if test="pojo.detail != null"> AND detail = #{pojo.detail} </if>
+        </where>
+        LIMIT 1000 
+    </select>
+
+    <select id="selectById" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM tb_webstu_order
+        WHERE o_id = #{id}
+    </select>
+
+    <!--auto generated Code-->
+    <delete id="delete">
+        DELETE FROM tb_webstu_order where o_id = #{id}
+    </delete>
+</mapper>
