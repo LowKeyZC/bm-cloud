@@ -7,9 +7,15 @@ server:
 spring:
     application:
         name: config-cloud
+    profiles:
+        active: native
     cloud:
         config:
             server:
-                git:
-                    uri: https://github.com/LowKeyZC/bm-cloud
-                    search-paths: configs
+                # 本地方式配置文件
+                native:
+                    search-locations: classpath:/configs
+                # git方式配置文件
+#                git:
+#                    uri: https://github.com/LowKeyZC/bm-cloud
+#                    search-paths: configs

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("book")
@@ -26,7 +27,8 @@ public class BookController {
     }
 
     @RequestMapping(value = "selectById", method = RequestMethod.POST)
-    public Book selectById(@RequestParam(value = "bookId") String bookId) {
+    public Book selectById(@RequestParam(value = "bookId") String bookId) throws InterruptedException {
+//        TimeUnit.SECONDS.sleep(10);
         return bookService.selectBookById(bookId);
     }
 
