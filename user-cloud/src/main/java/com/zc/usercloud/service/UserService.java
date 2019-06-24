@@ -21,10 +21,10 @@ public class UserService {
     @Resource
     private UserMapper userMapper;
 
-    @Autowired
+    @Resource
     private BookService bookService;
 
-    @Autowired
+    @Resource
     private OrderService orderService;
 
     public ZcResult buy(String userId, String bookId) {
@@ -36,8 +36,12 @@ public class UserService {
 
         //调用图书微服务，查询图书价格
         LOGGER.info("user-cloud:service:buy:调用book-cloud");
-        Integer bookValue = bookService.selectBookById(bookId).getBookValue();
+        Book book = bookService.selectBookById(bookId);
+        if (null == book) {
+            return ZcResult.result(ResultEnum.NOBOOK);
+        }
 
+        Integer bookValue = book.getBookValue();
         if (userHasMoney < bookValue) {
             return ZcResult.result(ResultEnum.NOMONEY);
         }

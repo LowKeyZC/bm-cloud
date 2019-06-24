@@ -12,11 +12,11 @@
 
     <!--获取USER-->
     <select id="selectUserById" parameterType="java.lang.String" resultMap="UserResult">
-        select * from tb_webstu_user where u_id = #{userId}
+        select * from tb_user where u_id = #{userId}
     </select>
 
     <update id="updateUser" parameterType="com.zc.usercloud.bean.User">
-        update tb_webstu_user
+        update tb_user
         <trim prefix="SET" suffixOverrides=",">
             <if test="userName != null  and userName != ''  ">u_name = #{userName},</if>
             <if test="userPwd != null  and userPwd != ''  ">u_pwd = #{userPwd},</if>

@@ -9,13 +9,77 @@ SpringCloud学习项目：图书馆系统
 	eureka-cloud:			注册中心
 	order-cloud:			订单微服务
 	user-cloud:				用户微服务
-	web-cloud:				网页微服务
+	web-cloud:				静态网页
 	zuul-cloud:             网关
 
 模块说明：
-1.zuul-cloud:
+zuul-cloud:
 a.网关服务，提供路由请求，监控，鉴权，缓存，限流等功能，生产环境下，各微服务都是内网部署，外网访问必须通过网关服务访问内部
 b.网关服务器是性能很强的服务器
 
 开发备注：
 1.微服务，各个模块依赖写在自己的pom中，看更多示例是否有更好的做法
+
+备注：
+mysql版本：8.0.16
+sql脚本：
+/*
+ Navicat MySQL Data Transfer
+
+ Source Server         : localhost
+ Source Server Type    : MySQL
+ Source Server Version : 80016
+ Source Host           : localhost:3306
+ Source Schema         : bm-cloud
+
+ Target Server Type    : MySQL
+ Target Server Version : 80016
+ File Encoding         : 65001
+
+ Date: 19/06/2019 16:06:37
+*/
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for tb_book
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_book`;
+CREATE TABLE `tb_book`  (
+  `b_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `b_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `b_content` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `b_value` int(5) NULL DEFAULT NULL,
+  PRIMARY KEY (`b_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for tb_order
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_order`;
+CREATE TABLE `tb_order`  (
+  `o_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `o_user_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `o_book_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `o_create_tm` datetime(0) NULL DEFAULT NULL,
+  `o_modify_tm` datetime(0) NULL DEFAULT NULL,
+  `o_status` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `detail` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`o_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for tb_user
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_user`;
+CREATE TABLE `tb_user`  (
+  `u_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `u_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `u_pwd` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `u_role_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `u_has_money` int(5) NULL DEFAULT NULL,
+  PRIMARY KEY (`u_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;

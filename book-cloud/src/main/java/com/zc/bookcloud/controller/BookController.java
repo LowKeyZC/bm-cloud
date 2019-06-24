@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.UUID;
@@ -18,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("book")
 public class BookController {
 
-    @Autowired
+    @Resource
     private BookService bookService;
 
     @RequestMapping(value = "list",method = RequestMethod.POST)
@@ -28,7 +29,7 @@ public class BookController {
 
     @RequestMapping(value = "selectById", method = RequestMethod.POST)
     public Book selectById(@RequestParam(value = "bookId") String bookId) throws InterruptedException {
-//        TimeUnit.SECONDS.sleep(10);
+        //TimeUnit.SECONDS.sleep(10);
         return bookService.selectBookById(bookId);
     }
 

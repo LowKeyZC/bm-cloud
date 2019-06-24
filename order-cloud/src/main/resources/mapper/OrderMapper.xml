@@ -10,7 +10,7 @@
         <result column="o_create_tm" property="createTm"/>
         <result column="o_modify_tm" property="modifyTm"/>
         <result column="o_status" property="status"/>
-        <result column="detail" property="detail"/>
+        <result column="o_detail" property="detail"/>
     </resultMap>
 
 <!--auto generated Code-->
@@ -26,7 +26,7 @@
 
 <!--auto generated Code-->
     <insert id="insert">
-        INSERT INTO tb_webstu_order
+        INSERT INTO tb_order
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pojo.id != null"> o_id, </if>
             <if test="pojo.userId != null"> o_user_id, </if>
@@ -50,7 +50,7 @@
 
 <!--auto generated Code-->
     <insert id="insertList">
-        INSERT INTO tb_webstu_order(
+        INSERT INTO tb_order(
         <include refid="all_column"/>
         )VALUES
         <foreach collection="pojos" item="pojo" index="index" separator=",">
@@ -68,7 +68,7 @@
 
 <!--auto generated Code-->
     <update id="update">
-        UPDATE tb_webstu_order
+        UPDATE tb_order
         <set>
             <if test="pojo.id != null"> o_id = #{pojo.id}, </if>
             <if test="pojo.userId != null"> o_user_id = #{pojo.userId}, </if>
@@ -84,7 +84,7 @@
 <!--auto generated Code-->
     <select id="select" resultMap="AllColumnMap">
         SELECT <include refid="all_column"/>
-        FROM tb_webstu_order
+        FROM tb_order
         <where>
             <if test="pojo.id != null"> AND o_id = #{pojo.id} </if>
             <if test="pojo.userId != null"> AND o_user_id = #{pojo.userId} </if>
@@ -99,12 +99,12 @@
 
     <select id="selectById" resultMap="AllColumnMap">
         SELECT <include refid="all_column"/>
-        FROM tb_webstu_order
+        FROM tb_order
         WHERE o_id = #{id}
     </select>
 
     <!--auto generated Code-->
     <delete id="delete">
-        DELETE FROM tb_webstu_order where o_id = #{id}
+        DELETE FROM tb_order where o_id = #{id}
     </delete>
 </mapper>

@@ -18,15 +18,18 @@ public class BookService {
 
     @Resource
     private BookMapper bookMapper;
-    @Autowired
+    @Resource
     private UserService userService;
-    @Autowired
+    @Resource
     private OrderService orderService;
 
     public List<BookResp> getAllBookAndStatus(String userId) {
         List<BookResp> resps = new ArrayList<>();
         List<Book> books = this.getAllBook();
         User user = userService.selectByUserId(userId);
+        if (null == user) {
+            return resps;
+        }
         Map<String,Order> orderMap = new HashMap<>();
 
         if (user.getRoleId().equals(Constant.CONSUMER)) {

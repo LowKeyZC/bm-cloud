@@ -5,13 +5,18 @@ import com.zc.usercloud.client.BookClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 @Service
 public class BookService {
 
-    @Autowired
+    @Resource
     private BookClient bookClient;
 
     public Book selectBookById(String bookId){
-        return bookClient.selectById(bookId);
+        long start = System.currentTimeMillis();
+        Book book = bookClient.selectById(bookId);
+        System.out.println("查询图书耗时：" + (System.currentTimeMillis() - start));
+        return book;
     }
 }

@@ -8,12 +8,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 @Service
 public class UserService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-    @Autowired
+    @Resource
     private UserClient userClient;
 
     public User selectByUserId(String userId) {

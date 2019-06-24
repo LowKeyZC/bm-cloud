@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(value = "order-cloud")
+@FeignClient(value = "order-cloud", fallback = OrderClientHystrix.class)
 public interface OrderClient {
 
     @RequestMapping("/order/selectByUserId")

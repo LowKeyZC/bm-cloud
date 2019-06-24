@@ -10,15 +10,15 @@
     </resultMap>
 
     <select id="getAllBook" resultMap="BookResult">
-        select * from tb_webstu_book
+        select * from tb_book
     </select>
 
     <select id="selectBookById" parameterType="java.lang.String" resultMap="BookResult">
-        select * from tb_webstu_book where b_id = #{bookId}
+        select * from tb_book where b_id = #{bookId}
     </select>
 
     <update id="updateBook" parameterType="Book">
-        update tb_webstu_book
+        update tb_book
         <trim prefix="SET" suffixOverrides=",">
             <if test="bookName != null  and bookName != ''  ">b_name = #{bookName},</if>
             <if test="bookContent != null  and bookContent != ''  ">b_content = #{bookContent},</if>
@@ -28,12 +28,12 @@
     </update>
 
     <insert id="insertBook" parameterType="com.zc.bookcloud.bean.Book">
-        insert into tb_webstu_book (b_id, b_name, b_content, b_value)
+        insert into tb_book (b_id, b_name, b_content, b_value)
         values (#{bookId},#{bookName},#{bookContent},#{bookValue});
     </insert>
 
     <delete id="delBookById" parameterType="String">
-        DELETE FROM tb_webstu_book
+        DELETE FROM tb_book
         WHERE b_id = #{bookId}
     </delete>
 

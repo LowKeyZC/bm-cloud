@@ -1,0 +1,25 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+.gitignore
+.idea/
+bm-cloud.iml
+book-cloud/book-cloud.iml
+book-cloud/target/
+config-cloud/config-cloud.iml
+config-cloud/target/
+eureka-cloud/eureka-cloud.iml
+eureka-cloud/target/
+order-cloud/order-cloud.iml
+order-cloud/target/
+user-cloud/target/
+user-cloud/user-cloud.iml
+zuul-cloud/target/
+zuul-cloud/zuul-cloud.iml
